@@ -2,7 +2,7 @@
 """
 Created on Fri Jan 26 17:03:43 2024
 
-@author: trevo
+@author: trevor
 """
 
 
