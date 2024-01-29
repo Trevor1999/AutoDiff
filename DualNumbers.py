@@ -68,10 +68,20 @@ class DualNumber:
         if isinstance(other, int) or isinstance(other, float):
             p = self.p**other
             d = self.d*(other)*(self.p**(other-1))
-            return DualNumber(p,d)
+        elif isinstance(other, DualNumber):
+            p = self.p ** other.p
+            d = other.p * self.p**(other.p-1)*self.d + np.log(self.p)*self.p**other.p * other.d
+        return DualNumber(p,d)
 
     def __rpow__(self,other):
-        pass
+        if isinstance(other, int) or isinstance(other, float):
+            p = other**self.p
+            d = other**self.p * np.log(other) * self.d
+        return DualNumber(p, d)
+    
+    
+    def copy(self):
+        return DualNumber(self.p, self.d)
 
     def __neg__(self):
         p = -self.p
@@ -87,7 +97,20 @@ class DualNumber:
         p = np.sin(self.p)
         d = np.cos(self.p)*self.d
         return DualNumber(p,d)
+    
     def sqrt(self):
         p = np.sqrt(self.p)
         d = self.d/(2*p)
         return DualNumber(p,d)
+    
+    def log(self):
+        p = np.log(self.p)
+        d = self.d / p
+        return DualNumber(p,d)
+    
+    def exp(self):
+        p = np.exp(self.p)
+        d = p*self.d
+        return DualNumber(p,d)
+    
+    
