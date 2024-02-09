@@ -9,7 +9,9 @@ Created on Fri Jan 26 17:03:43 2024
 import numpy as np
 
 class DualNumber:
-
+    
+    __slots__ = "p", "d"
+    
     def __init__(self, Primal, Dual):
         """
 
@@ -28,7 +30,7 @@ class DualNumber:
         self.p = Primal
         self.d = Dual
     
-    def convertarr(arr):
+    def convertarr(arr, dual_value=0):
         """
         
 
@@ -36,6 +38,8 @@ class DualNumber:
         ----------
         arr : TYPE
             DESCRIPTION.
+            
+        dual_value: What the dual number part is for ALL entries in output
 
         Returns
         -------
@@ -45,7 +49,7 @@ class DualNumber:
         """
         outarr = np.zeros((np.size(arr)), dtype=object)
         for i,x in enumerate(np.nditer(arr)):
-            outarr[i] = DualNumber(x, 0)
+            outarr[i] = DualNumber(x, dual_value)
         return outarr.reshape(np.shape(arr))
     
     def deconvert(arr, primal=True):
